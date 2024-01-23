@@ -16,11 +16,12 @@ section .data
     msgOp db LF, 'Escolha a operacao a realizar: ', NULL
     ; msgOpAlt db LF, 'O que mais pretendes fazer?', LF, NULL
     msgError db LF, 'Valor da Opcao invalida', NULL
-    p1 db 'Processo de Adicao: ', NULL
-    p2 db 'Processo de Subtracao: ', NULL
-    p3 db 'Processo de Multiplicacao: ', NULL
-    p4 db 'Processo de Divisao: ', NULL
+    p1 db 'Processo de Adicao', NULL
+    p2 db 'Processo de Subtracao', NULL
+    p3 db 'Processo de Multiplicacao', NULL
+    p4 db 'Processo de Divisao', NULL
 
+    result db 'O resultado foi: ', NULL
     msgFim db LF, 'Terminei!!!', LF, NULL
 
 section .bss
@@ -81,6 +82,8 @@ global _start
             jmp escolha
 
         adicionar:
+            mov ECX, p1
+            call mostrarSaida
             mov ECX, msgIntroNum
             call mostrarSaida
             
@@ -105,12 +108,14 @@ global _start
 
             mov [res], AX
 
-            mov ECX, p1
+            mov ECX, result
             call mostrarSaida
 
             jmp resultado
         
         subtrair:
+            mov ECX, p2
+            call mostrarSaida
             mov ECX, msgIntroNum
             call mostrarSaida
             
@@ -135,12 +140,14 @@ global _start
 
             mov [res], AX
 
-            mov ECX, p2
+            mov ECX, result
             call mostrarSaida
 
             jmp resultado
         
         multiplicar:
+            mov ECX, p3
+            call mostrarSaida
             mov ECX, msgIntroNum
             call mostrarSaida
             
@@ -165,12 +172,14 @@ global _start
 
             mov [res], AX
 
-            mov ECX, p3
+            mov ECX, result
             call mostrarSaida
 
             jmp resultado
         
         divisao:
+            mov ECX, p4
+            call mostrarSaida
             mov ECX, msgIntroNum
             call mostrarSaida
             
@@ -195,7 +204,7 @@ global _start
 
             mov [res], AL
 
-            mov ECX, p4
+            mov ECX, result
             call mostrarSaida
 
             jmp resultado
