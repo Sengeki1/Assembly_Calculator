@@ -26,7 +26,7 @@ section .data
 section .bss
     operacao1 RESB 1
     operacao2 RESB 1
-    res RESB 1
+    res RESB 3
     valor1 RESB 2
     valor2 RESB 2
 
@@ -89,16 +89,19 @@ global _start
             mov ECX, valor2
             call mostrarEntradaNumero
 
-            mov EAX, [valor1]
-            sub EAX, '0'
+            mov AX, [valor1]
+            sub AX, '0'
 
-            mov EBX, [valor2]
-            sub EBX, '0'
+            mov BX, [valor2]
+            sub BX, '0'
             
-            add EAX, EBX
-            add EAX, '0' ; to convert the sum from decimal to ASCII
+            add AX, BX
+            add AX, '0' ; to convert the sum from decimal to ASCII
 
-            mov [res], EAX
+            mov [res], AX
+
+            mov ECX, p1
+            call mostrarSaida
 
             jmp resultado
         
@@ -116,16 +119,16 @@ global _start
             mov ECX, valor2
             call mostrarEntradaNumero
 
-            mov EAX, [valor1]
-            sub EAX, '0'
+            mov AX, [valor1]
+            sub AX, '0'
 
-            mov EBX, [valor2]
-            sub EBX, '0'
+            mov BX, [valor2]
+            sub BX, '0'
             
-            sub EAX, EBX
-            add EAX, '0' ; to convert the sum from decimal to ASCII
+            sub AX, BX
+            add AX, '0' ; to convert the sum from decimal to ASCII
 
-            mov [res], EAX
+            mov [res], AX
 
             mov ECX, p2
             call mostrarSaida
@@ -146,16 +149,16 @@ global _start
             mov ECX, valor2
             call mostrarEntradaNumero
 
-            mov EAX, [valor1]
-            sub EAX, '0'
+            mov AX, [valor1]
+            sub AX, '0'
 
-            mov EBX, [valor2]
-            sub EBX, '0'
+            mov BX, [valor2]
+            sub BX, '0'
             
-            mul EBX
-            add EAX, '0' ; to convert the sum from decimal to ASCII
+            mul BX
+            add AX, '0' ; to convert the sum from decimal to ASCII
 
-            mov [res], EAX
+            mov [res], AX
 
             mov ECX, p3
             call mostrarSaida
@@ -176,16 +179,16 @@ global _start
             mov ECX, valor2
             call mostrarEntradaNumero
 
-            mov EAX, [valor1]
-            sub EAX, '0'
+            mov AX, [valor1]
+            sub AX, '0'
 
-            mov EBX, [valor2]
-            sub EBX, '0'
+            mov BX, [valor2]
+            sub BX, '0'
             
-            div EBX
-            add EAX, '0' ; to convert the sum from decimal to ASCII
+            div BX
+            add AX, '0' ; to convert the sum from decimal to ASCII
 
-            mov [res], EAX
+            mov [res], AX
 
             mov ECX, p4
             call mostrarSaida
