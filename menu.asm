@@ -14,7 +14,7 @@ section .data
 
     msgIntroNum db LF, 'Introduza os numeros: ', LF, NULL
     msgOp db LF, 'Escolha a operacao a realizar: ', NULL
-    msgOpAlt db LF, 'O que mais pretendes fazer?', LF, NULL
+    ; msgOpAlt db LF, 'O que mais pretendes fazer?', LF, NULL
     msgError db LF, 'Valor da Opcao invalida', NULL
     p1 db 'Processo de Adicao: ', NULL
     p2 db 'Processo de Subtracao: ', NULL
@@ -26,7 +26,7 @@ section .data
 section .bss
     operacao1 RESB 1
     operacao2 RESB 1
-    res RESB 3
+    res RESB 1
     valor1 RESB 2
     valor2 RESB 2
 
@@ -74,6 +74,11 @@ global _start
 
             cmp AX, 4
             je divisao
+
+            mov ECX, msgError
+            call mostrarSaida
+            
+            jmp escolha
 
         adicionar:
             mov ECX, msgIntroNum
@@ -179,16 +184,16 @@ global _start
             mov ECX, valor2
             call mostrarEntradaNumero
 
-            mov AX, [valor1]
-            sub AX, '0'
+            mov AL, [valor1]
+            sub AL, '0'
 
-            mov BX, [valor2]
-            sub BX, '0'
+            mov BL, [valor2]
+            sub BL, '0'
             
-            div BX
-            add AX, '0' ; to convert the sum from decimal to ASCII
+            div BL
+            add AL, '0' ; to convert the sum from decimal to ASCII
 
-            mov [res], AX
+            mov [res], AL
 
             mov ECX, p4
             call mostrarSaida
@@ -200,7 +205,7 @@ global _start
             call mostrarSaidaNumero
         
         escolha:
-            mov ECX, op0
+            mov ECX, qqTecla
             call mostrarSaida
             mov ECX, op5
             call mostrarSaida
@@ -210,9 +215,6 @@ global _start
 
             movzx AX, byte[operacao2] ; Zero-extend the byte to a word (unsigned)
             sub AX, '0'
-
-            cmp AX, 0
-            jz exit
 
             cmp AX, 1
             je comecar
