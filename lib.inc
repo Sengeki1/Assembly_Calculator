@@ -16,21 +16,21 @@ segment .data
 
 segment .text
 
-mostrarSaida:
+mostrarSaida: ; label criado para fazer o output
     call tamString
     mov EAX, SYS_WRITE
     mov EBX, SDT_OUTPUT
     int SYS_CALL
     ret ; retorna ao ponto em que estava
 
-mostrarEntradaNumero:
+mostrarEntradaNumero: ; label criado para receber input
     mov EAX, SYS_READ
     mov EBX, SDT_INPUT
-    mov EDX, 0xA
+    mov EDX, 0xA ; tamanho do input
     int SYS_CALL
     ret
 
-mostrarSaidaNumero:
+mostrarSaidaNumero: ; label criado para fazer o output de numeros
     mov EAX, SYS_WRITE
     mov EBX, SDT_OUTPUT
     mov EDX, 0x1
