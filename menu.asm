@@ -36,12 +36,12 @@ section .text
 global _start
     _start:
 
-        mov ECX, titulo ; movemos para ECX porque é o registrador onde
+        mov ECX, titulo
         call mostrarSaida
 
         comecar:
             mov ECX, op0
-            call mostrarSaida ; label criado para fazer o output da mensagem op0 defenido em section .data
+            call mostrarSaida
             mov ECX, op1
             call mostrarSaida
             mov ECX, op2
@@ -56,16 +56,16 @@ global _start
 
         receberEntrada:
             mov ECX, operacao1
-            call mostrarEntradaNumero ;  label criado para receber o input do utilizador sendo que é uma variavel reservado em section .bss
+            call mostrarEntradaNumero
 
-            movzx AX, byte[operacao1] ; Zero-extend the byte to a word (unsigned) copia o conteudo de um byte e prenche os bits extra com zeros 
-            sub AX, '0' ; conversao do caracter numerico para o seu valor atual
-            ; sendo o registrador AX onde temos guardado a referencia na memoria da variabel operacao1
-            cmp AX, 0 ; comparamos se o valor no registrar é igual 0 
-            jz exit ;  se for faz jump zero que se o valor for igual a 0 faz esse jump exclusivo para exit
+            movzx AX, byte[operacao1] ; Zero-extend the byte to a word (unsigned)
+            sub AX, '0'
+            
+            cmp AX, 0
+            jz exit
 
-            cmp AX, 1 ; comparamos se o valor em AX é igual a 1
-            je adicionar ; jump if equal, se for igual salta para o label adicionar se n for prossegue o codigo abaixo 
+            cmp AX, 1
+            je adicionar ; jump if equal
 
             cmp AX, 2
             je subtrair
@@ -76,8 +76,7 @@ global _start
             cmp AX, 4
             je divisao
 
-            mov ECX, msgError ; chegando a este ponto significa que o input inserido n foi nenhuma das condicoes acima
-            ; entao fazemos o output da mensagem de erro saltando logo para o label escolha
+            mov ECX, msgError
             call mostrarSaida
             
             jmp escolha
@@ -89,30 +88,30 @@ global _start
             call mostrarSaida
             
             mov ECX, obterValor1
-            call mostrarSaida ; Fazemos o display da mensagem primeiro
-            mov ECX, valor1 
-            call mostrarEntradaNumero ; depois solicitamos o numero que queremos fazer operacaoes com o segundo numero que sera requisita posteriormente
+            call mostrarSaida
+            mov ECX, valor1
+            call mostrarEntradaNumero
             
             mov ECX, obterValor2
             call mostrarSaida
             mov ECX, valor2
             call mostrarEntradaNumero
 
-            mov AX, [valor1] ; movemos para AX a referencia da variavel valor1 que contem o numero inserido pelo utilizador
-            sub AX, '0' ; convertemos
+            mov AX, [valor1]
+            sub AX, '0'
 
             mov BX, [valor2]
             sub BX, '0'
             
-            add AX, BX ; fazemos a operação aritmetica entre os dois registradores
+            add AX, BX
             add AX, '0' ; to convert the sum from decimal to ASCII
 
-            mov [res], AX ; movemos para a variavel res que estamos referenciando na memoria em que ira receber o valor acomulado em AX
+            mov [res], AX
 
-            mov ECX, result ; fazemos o output da msg resultado
+            mov ECX, result
             call mostrarSaida
 
-            jmp resultado ;  em seguida saltamos para o label resultado que ira retornar o valor contido nessa varivel reservada em section .bss
+            jmp resultado
         
         subtrair:
             mov ECX, p2
@@ -137,7 +136,7 @@ global _start
             sub BX, '0'
             
             sub AX, BX
-            add AX, '0'
+            add AX, '0' ; to convert the sum from decimal to ASCII
 
             mov [res], AX
 
@@ -169,7 +168,7 @@ global _start
             sub BX, '0'
             
             mul BX
-            add AX, '0'
+            add AX, '0' ; to convert the sum from decimal to ASCII
 
             mov [res], AX
 
@@ -194,14 +193,14 @@ global _start
             mov ECX, valor2
             call mostrarEntradaNumero
 
-            mov AL, [valor1] ; Foi utilizado os registradores AL e BL devido a operação de divisão
+            mov AL, [valor1]
             sub AL, '0'
 
             mov BL, [valor2]
             sub BL, '0'
             
             div BL
-            add AL, '0'
+            add AL, '0' ; to convert the sum from decimal to ASCII
 
             mov [res], AL
 
@@ -215,9 +214,9 @@ global _start
             call mostrarSaidaNumero
         
         escolha:
-            mov ECX, qqTecla
-            call mostrarSaida
             mov ECX, op5
+            call mostrarSaida
+            mov ECX, qqTecla
             call mostrarSaida
 
             mov ECX, operacao2
@@ -226,9 +225,9 @@ global _start
             movzx AX, byte[operacao2] ; Zero-extend the byte to a word (unsigned)
             sub AX, '0'
 
-            cmp AX, 1 ; se o valor inserido for 1 salta de volta ao ponto inicial
+            cmp AX, 1
             je comecar
-            ; se não prossiga e termina o programa
+
         exit:
             mov ECX, msgFim
             call mostrarSaida
