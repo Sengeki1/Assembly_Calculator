@@ -63,7 +63,9 @@ int main() {
             cin >> num2;
 
             cout << "O resultado foi: " << divisao(num1, num2) << endl;
-        } 
+        } else {
+            cout << "Valor da Opcao invalida" << endl;
+        }
             
         cout << "> Pressione 1 - Para voltar ao menu principal e Realizar novas operacoes." << endl;
         cout << "> Ou pressione qualquer tecla para sair do programa" <<endl;
